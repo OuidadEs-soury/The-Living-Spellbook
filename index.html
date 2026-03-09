@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/4.1.0/turn.min.js"></script>
 <meta charset="UTF-8">
 <title>The Living Spellbook</title>
 
@@ -14,18 +17,33 @@
 
 <div class="darkness"></div>
 
-<div class="spellbook" id="book">
+<div id="book">
+
+<div class="page cover">
+<h1>The Living Spellbook</h1>
+<p>Move your wand to reveal magic</p>
+</div>
 
 <div class="page">
+<h2>Lumos</h2>
+<p>The spell that brings light to darkness.</p>
+<button class="spell" data-spell="lumos">Cast Lumos</button>
+</div>
 
-<h1>The Living Spellbook</h1>
+<div class="page">
+<h2>Accio</h2>
+<p>The summoning charm that pulls objects.</p>
+<button class="spell" data-spell="accio">Cast Accio</button>
+</div>
 
-<p>Move your wand and reveal the magic.</p>
+<div class="page">
+<h2>Alohomora</h2>
+<p>The unlocking charm.</p>
+<button class="spell" data-spell="alohomora">Cast Alohomora</button>
+</div>
 
-<button class="spell" data-spell="lumos">Lumos</button>
-<button class="spell" data-spell="accio">Accio</button>
-<button class="spell" data-spell="alohomora">Alohomora</button>
-
+<div class="page cover">
+<h2>End of the Spellbook</h2>
 </div>
 
 </div>

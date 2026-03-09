@@ -3,10 +3,10 @@ margin:0;
 background:black;
 font-family:'Cinzel', serif;
 overflow:hidden;
-color:#e8d8a8;
+color:#3b2b12;
 }
 
-/* dark screen */
+/* darkness wand system */
 
 .darkness{
 position:fixed;
@@ -14,55 +14,84 @@ width:100%;
 height:100%;
 background:black;
 pointer-events:none;
+z-index:5;
 }
 
-/* spellbook */
+/* book container */
 
-.spellbook{
+#book{
+width:800px;
+height:500px;
 
 position:absolute;
+
 top:50%;
 left:50%;
+
 transform:translate(-50%,-50%);
-width:600px;
-height:400px;
+}
 
-background:#1c1a16;
-border-radius:10px;
+/* pages */
 
-box-shadow:
-0 0 30px rgba(255,215,120,0.2);
+.page{
+
+background:#f5e6c8;
+
+background-image:url("assets/parchment.jpg");
+
+background-size:cover;
 
 padding:40px;
 
-text-align:center;
+box-shadow:
+
+inset 0 0 30px rgba(0,0,0,0.4),
+0 0 20px rgba(0,0,0,0.6);
+
 }
 
 .page h1{
-
 font-size:40px;
-margin-bottom:20px;
+text-align:center;
 }
+
+.page h2{
+font-size:30px;
+margin-bottom:10px;
+}
+
+/* cover */
+
+.cover{
+background:#3b2b12;
+color:#e8d8a8;
+text-align:center;
+}
+
+/* spell buttons */
 
 .spell{
 
-background:#2a251d;
-border:1px solid #8a6f3c;
+margin-top:20px;
 
 padding:10px 20px;
-margin:10px;
 
-color:#e8d8a8;
+border:none;
+
+background:#6e4b1f;
+
+color:white;
 
 cursor:pointer;
 
 transition:0.3s;
+
 }
 
 .spell:hover{
 
-background:#8a6f3c;
-color:black;
+background:#c89b3c;
 
-box-shadow:0 0 15px gold;
+box-shadow:0 0 10px gold;
+
 }
