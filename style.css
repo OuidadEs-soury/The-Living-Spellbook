@@ -3,23 +3,28 @@ margin:0;
 background:black;
 font-family:'Cinzel', serif;
 overflow:hidden;
-color:#3b2b12;
 }
 
-/* darkness wand system */
+/* wand darkness system */
 
 .darkness{
+
 position:fixed;
 width:100%;
 height:100%;
+
 background:black;
+
 pointer-events:none;
-z-index:5;
+
+z-index:1;
+
 }
 
-/* book container */
+/* book */
 
 #book{
+
 width:800px;
 height:500px;
 
@@ -29,6 +34,9 @@ top:50%;
 left:50%;
 
 transform:translate(-50%,-50%);
+
+z-index:2;
+
 }
 
 /* pages */
@@ -36,9 +44,7 @@ transform:translate(-50%,-50%);
 .page{
 
 background:#f5e6c8;
-
 background-image:url("assets/parchment.jpg");
-
 background-size:cover;
 
 padding:40px;
@@ -51,21 +57,24 @@ inset 0 0 30px rgba(0,0,0,0.4),
 }
 
 .page h1{
+
 font-size:40px;
 text-align:center;
+
 }
 
 .page h2{
+
 font-size:30px;
-margin-bottom:10px;
+
 }
 
-/* cover */
-
 .cover{
+
 background:#3b2b12;
 color:#e8d8a8;
 text-align:center;
+
 }
 
 /* spell buttons */
@@ -74,7 +83,7 @@ text-align:center;
 
 margin-top:20px;
 
-padding:10px 20px;
+padding:12px 25px;
 
 border:none;
 

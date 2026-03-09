@@ -1,19 +1,36 @@
 const darkness = document.querySelector(".darkness")
 
-document.addEventListener("mousemove", (e)=>{
+document.addEventListener("mousemove",(e)=>{
 
 let x = e.clientX
 let y = e.clientY
 
 darkness.style.background =
-`radial-gradient(circle 150px at ${x}px ${y}px, transparent, black 80%)`
+`radial-gradient(circle 180px at ${x}px ${y}px, transparent, black 80%)`
 
 })
+
+/* initialize spellbook */
+
+$(document).ready(function(){
+
+$("#book").turn({
+
+width:800,
+height:500,
+autoCenter:true
+
+})
+
+})
+
+/* spell system */
+
 const spells = document.querySelectorAll(".spell")
 
 spells.forEach(button => {
 
-button.addEventListener("click", ()=>{
+button.addEventListener("click",()=>{
 
 let spell = button.dataset.spell
 
@@ -25,21 +42,21 @@ castSpell(spell)
 
 function castSpell(spell){
 
-if(spell === "lumos"){
+if(spell==="lumos"){
 
-document.body.style.background = "#111"
-
-}
-
-if(spell === "accio"){
-
-alert("Objects fly toward your wand!")
+document.body.style.background="#222"
 
 }
 
-if(spell === "alohomora"){
+if(spell==="accio"){
 
-alert("🔓 The magic unlocks hidden doors")
+alert("✨ Objects fly toward your wand!")
+
+}
+
+if(spell==="alohomora"){
+
+alert("🔓 Magical locks open!")
 
 }
 
