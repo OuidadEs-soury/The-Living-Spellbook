@@ -10,7 +10,7 @@ darkness.style.background =
 
 })
 
-/* initialize spellbook */
+/* initialize book */
 
 $(document).ready(function(){
 
@@ -57,6 +57,12 @@ alert("✨ Objects fly toward your wand!")
 if(spell==="alohomora"){
 
 alert("🔓 Magical locks open!")
+
+}
+
+if(spell==="patronum"){
+
+alert("🦌 A Patronus appears!")
 
 }
 
