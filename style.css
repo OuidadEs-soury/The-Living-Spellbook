@@ -6,19 +6,24 @@ overflow:hidden;
 cursor:none;
 }
 
-/* magical particles */
+/* spell canvas */
 
-#particles{
+#spellCanvas{
 
 position:fixed;
+top:0;
+left:0;
+
 width:100%;
 height:100%;
+
 pointer-events:none;
-z-index:0;
+
+z-index:5;
 
 }
 
-/* darkness wand */
+/* darkness */
 
 .darkness{
 position:fixed;
@@ -29,19 +34,61 @@ pointer-events:none;
 z-index:1;
 }
 
-/* center wrapper */
+/* particles */
+
+#particles{
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:0;
+}
+
+/* candles */
+
+#candles{
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:1;
+}
+
+/* candle */
+
+.candle{
+position:absolute;
+width:6px;
+height:40px;
+background:#eee;
+border-radius:3px;
+}
+
+.flame{
+position:absolute;
+top:-10px;
+left:-3px;
+width:12px;
+height:12px;
+background:radial-gradient(circle,yellow,orange,transparent);
+border-radius:50%;
+animation:flicker .2s infinite alternate;
+}
+
+@keyframes flicker{
+from{transform:scale(1)}
+to{transform:scale(1.2)}
+}
+
+/* book */
 
 .book-wrapper{
-
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
 z-index:2;
-
 }
-
-/* book */
 
 #book{
 width:800px;
@@ -51,29 +98,11 @@ height:500px;
 /* pages */
 
 .page{
-
 background:#f5e6c8;
 background-image:url("assets/parchment.jpg");
 background-size:cover;
-
 padding:40px;
-
-box-shadow:
-inset 0 0 30px rgba(0,0,0,0.5),
-0 0 20px rgba(0,0,0,0.7);
-
 }
-
-.page h1{
-font-size:40px;
-text-align:center;
-}
-
-.page h2{
-font-size:30px;
-}
-
-/* cover */
 
 .cover{
 background:#3b2b12;
@@ -81,51 +110,22 @@ color:#e8d8a8;
 text-align:center;
 }
 
-/* buttons */
-
-.spell{
-
-margin-top:20px;
-padding:12px 25px;
-
-border:none;
-
-background:#6e4b1f;
-color:white;
-
-cursor:pointer;
-
-transition:0.3s;
-
-}
-
-.spell:hover{
-
-background:#c89b3c;
-box-shadow:0 0 15px gold;
-
-}
-
-/* wand glow */
+/* wand */
 
 .wand{
-
 position:fixed;
-
 width:20px;
 height:20px;
-
 border-radius:50%;
-
-background:radial-gradient(circle, white, gold);
-
+background:radial-gradient(circle,white,gold);
 pointer-events:none;
-
 z-index:10;
+box-shadow:0 0 20px gold,0 0 40px gold;
+}
 
-box-shadow:
-0 0 20px gold,
-0 0 40px gold,
-0 0 60px orange;
+/* magical text */
 
+.magic-text{
+opacity:0;
+transition:opacity 1s;
 }
