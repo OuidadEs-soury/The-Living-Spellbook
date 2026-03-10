@@ -1,142 +1,155 @@
-/* wand light */
+const darkness=document.querySelector(".darkness")
 
-const darkness = document.querySelector(".darkness")
+/* wand */
+
+const wand=document.createElement("div")
+wand.classList.add("wand")
+document.body.appendChild(wand)
 
 document.addEventListener("mousemove",(e)=>{
 
-let x = e.clientX
-let y = e.clientY
+let x=e.clientX
+let y=e.clientY
 
-darkness.style.background =
+darkness.style.background=
 `radial-gradient(circle 180px at ${x}px ${y}px, transparent, black 80%)`
 
-wand.style.left = x + "px"
-wand.style.top = y + "px"
+wand.style.left=x+"px"
+wand.style.top=y+"px"
 
 })
 
-/* glowing wand cursor */
-
-const wand = document.createElement("div")
-wand.classList.add("wand")
-
-document.body.appendChild(wand)
-
-/* initialize spellbook */
+/* spellbook */
 
 $(document).ready(function(){
 
 $("#book").turn({
-
 width:800,
 height:500,
 autoCenter:true
-
 })
 
 })
 
-/* magical particles */
+/* magical text */
 
-const particlesContainer = document.getElementById("particles")
+document.querySelectorAll(".magic-text").forEach((t,i)=>{
+setTimeout(()=>{t.style.opacity=1},i*500)
+})
 
-for(let i=0;i<60;i++){
+/* canvas for spell drawing */
 
-let p = document.createElement("div")
+const canvas=document.getElementById("spellCanvas")
+const ctx=canvas.getContext("2d")
 
-p.style.position="absolute"
-p.style.width="4px"
-p.style.height="4px"
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
 
-p.style.background="gold"
+let drawing=false
+let points=[]
 
-p.style.borderRadius="50%"
+document.addEventListener("mousedown",(e)=>{
+drawing=true
+points=[]
+})
 
-p.style.left=Math.random()*window.innerWidth+"px"
-p.style.top=Math.random()*window.innerHeight+"px"
+document.addEventListener("mouseup",()=>{
 
-p.style.opacity=Math.random()
+drawing=false
 
-particlesContainer.appendChild(p)
+recognizeSpell(points)
 
-animateParticle(p)
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+})
+
+document.addEventListener("mousemove",(e)=>{
+
+if(!drawing)return
+
+points.push({x:e.clientX,y:e.clientY})
+
+ctx.strokeStyle="gold"
+ctx.lineWidth=3
+ctx.lineTo(e.clientX,e.clientY)
+ctx.stroke()
+
+})
+
+/* spell recognition */
+
+function recognizeSpell(points){
+
+if(points.length<10)return
+
+let dx=points[points.length-1].x-points[0].x
+let dy=Math.abs(points[points.length-1].y-points[0].y)
+
+/* horizontal line */
+
+if(Math.abs(dx)>200 && dy<50){
+
+castSpell("lumos")
+return
 
 }
 
-function animateParticle(p){
+/* circle detection */
 
-let x = Math.random()*window.innerWidth
-let y = Math.random()*window.innerHeight
+let minX=Math.min(...points.map(p=>p.x))
+let maxX=Math.max(...points.map(p=>p.x))
+let minY=Math.min(...points.map(p=>p.y))
+let maxY=Math.max(...points.map(p=>p.y))
 
-p.animate(
+let width=maxX-minX
+let height=maxY-minY
 
-[
-{transform:`translate(0,0)`},
-{transform:`translate(${x}px,${y}px)`}
+if(Math.abs(width-height)<50){
 
-],
-
-{
-
-duration:20000,
-iterations:Infinity
+castSpell("patronum")
+return
 
 }
 
-)
+/* Z shape rough */
+
+if(points.length>40){
+
+castSpell("alohomora")
 
 }
 
-/* spell system */
+}
 
-const spells = document.querySelectorAll(".spell")
-
-spells.forEach(button => {
-
-button.addEventListener("click",()=>{
-
-let spell = button.dataset.spell
-
-castSpell(spell)
-
-})
-
-})
+/* spell effects */
 
 function castSpell(spell){
+
+spellFlash()
 
 if(spell==="lumos"){
 
 document.body.style.background="#222"
 
-spellFlash()
-
-}
-
-if(spell==="accio"){
-
-spellFlash()
-alert("✨ Objects fly toward your wand!")
-
-}
-
-if(spell==="alohomora"){
-
-spellFlash()
-alert("🔓 Magical locks open!")
+alert("💡 Lumos!")
 
 }
 
 if(spell==="patronum"){
 
-spellFlash()
-alert("🦌 A Patronus appears!")
+alert("🦌 Expecto Patronum!")
+
+}
+
+if(spell==="alohomora"){
+
+alert("🔓 Alohomora!")
 
 }
 
 }
 
-/* spell flash effect */
+/* flash */
 
 function spellFlash(){
 
@@ -145,19 +158,12 @@ let flash=document.createElement("div")
 flash.style.position="fixed"
 flash.style.width="100%"
 flash.style.height="100%"
-
 flash.style.background="white"
-
-flash.style.opacity="0.6"
-
+flash.style.opacity="0.5"
 flash.style.zIndex="9"
 
 document.body.appendChild(flash)
 
-setTimeout(()=>{
-
-flash.remove()
-
-},200)
+setTimeout(()=>flash.remove(),200)
 
 }
