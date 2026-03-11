@@ -1,60 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
 <meta charset="UTF-8">
-<title>The Living Spellbook</title>
+<title>Living Spellbook</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+body{
+margin:0;
+background:black;
+color:white;
+font-family:serif;
+overflow:hidden;
+}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
+/* wand light */
+
+#light{
+
+position:fixed;
+
+width:300px;
+height:300px;
+
+border-radius:50%;
+
+pointer-events:none;
+
+background:radial-gradient(circle, rgba(255,240,180,.9), rgba(0,0,0,0));
+
+mix-blend-mode:screen;
+
+}
+
+.container{
+
+display:flex;
+height:100vh;
+justify-content:center;
+align-items:center;
+
+}
+
+.book{
+
+font-size:40px;
+cursor:pointer;
+padding:40px;
+
+background:#2b1d0e;
+
+border:4px solid #6b4c1f;
+
+border-radius:8px;
+
+}
+
+</style>
 
 </head>
 
 <body>
 
-<div class="darkness"></div>
+<div id="light"></div>
 
-<canvas id="spellCanvas"></canvas>
+<div class="container">
 
-<div id="particles"></div>
-<div id="candles"></div>
-
-<div class="book-wrapper">
-
-<div id="book">
-
-<div class="page cover">
-<h1 class="magic-text">The Living Spellbook</h1>
-<p class="magic-text">Draw spells with your wand</p>
-</div>
-
-<div class="page">
-<h2 class="magic-text">Gesture Magic</h2>
-<p class="magic-text">
-Try drawing shapes with your wand:
-<br><br>
-— Line → Lumos  
-<br>
-— Circle → Patronus  
-<br>
-— Z shape → Alohomora
-</p>
-</div>
-
-<div class="page cover">
-<h2 class="magic-text">The Book Awaits Your Magic</h2>
+<div class="book" onclick="openMap()">
+📜 Open The Marauder's Map
 </div>
 
 </div>
 
-</div>
+<script>
 
-<script src="script.js"></script>
+const light=document.getElementById("light")
+
+document.addEventListener("mousemove",e=>{
+
+light.style.left=e.clientX-150+"px"
+light.style.top=e.clientY-150+"px"
+
+})
+
+function openMap(){
+
+window.location="marauders-map.html"
+
+}
+
+</script>
 
 </body>
 </html>

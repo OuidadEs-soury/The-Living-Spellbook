@@ -1,13 +1,35 @@
 body{
+
 margin:0;
-background:#1a1208;
+background:#1b1409;
 font-family:'Cinzel',serif;
+
 }
 
 .title{
+
 text-align:center;
 color:#e6c97a;
-margin-top:20px;
+
+}
+
+/* wand light */
+
+#light{
+
+position:fixed;
+
+width:250px;
+height:250px;
+
+border-radius:50%;
+
+pointer-events:none;
+
+background:radial-gradient(circle, rgba(255,240,180,.9), rgba(0,0,0,0));
+
+mix-blend-mode:screen;
+
 }
 
 /* map */
@@ -19,7 +41,7 @@ position:relative;
 width:90%;
 height:80vh;
 
-margin:40px auto;
+margin:auto;
 
 background:#f5e6c8;
 
@@ -47,11 +69,11 @@ font-size:13px;
 
 opacity:0;
 
-transition:opacity .3s;
+transition:.3s;
 
 }
 
-/* student dots */
+/* students */
 
 .student{
 
@@ -66,7 +88,7 @@ border-radius:50%;
 
 }
 
-/* name label */
+/* label */
 
 .label{
 
@@ -76,8 +98,21 @@ font-size:12px;
 
 white-space:nowrap;
 
-color:black;
+}
 
-pointer-events:none;
+/* footprints */
+
+.footprint{
+
+position:absolute;
+
+width:6px;
+height:10px;
+
+background:black;
+
+border-radius:50%;
+
+opacity:.6;
 
 }

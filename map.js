@@ -1,7 +1,18 @@
-const map = document.getElementById("map")
-const studentsContainer = document.getElementById("students")
+const map=document.getElementById("map")
+const studentsContainer=document.getElementById("students")
 
-/* reveal rooms when wand is close */
+const light=document.getElementById("light")
+
+/* wand light */
+
+document.addEventListener("mousemove",e=>{
+
+light.style.left=e.clientX-125+"px"
+light.style.top=e.clientY-125+"px"
+
+})
+
+/* reveal rooms */
 
 document.addEventListener("mousemove",(e)=>{
 
@@ -17,9 +28,13 @@ const dy=e.clientY-(rect.top+rect.height/2)
 const distance=Math.sqrt(dx*dx+dy*dy)
 
 if(distance<120){
+
 room.style.opacity=1
+
 }else{
+
 room.style.opacity=0
+
 }
 
 })
@@ -29,6 +44,7 @@ room.style.opacity=0
 /* students */
 
 const studentNames=[
+
 "Harry Potter",
 "Hermione Granger",
 "Ron Weasley",
@@ -38,6 +54,7 @@ const studentNames=[
 "Ginny Weasley",
 "Fred Weasley",
 "George Weasley"
+
 ]
 
 const students=[]
@@ -57,33 +74,50 @@ map.appendChild(label)
 let x=Math.random()*map.clientWidth
 let y=Math.random()*map.clientHeight
 
-dot.style.left=x+"px"
-dot.style.top=y+"px"
-
-label.style.left=x+12+"px"
-label.style.top=y+"px"
-
 students.push({dot,label,x,y})
 
 })
 
-/* movement system */
+/* footprints */
+
+function createFootprint(x,y){
+
+const f=document.createElement("div")
+
+f.className="footprint"
+
+f.style.left=x+"px"
+f.style.top=y+"px"
+
+map.appendChild(f)
+
+setTimeout(()=>{
+
+f.remove()
+
+},2000)
+
+}
+
+/* movement */
 
 function moveStudents(){
 
-students.forEach(student=>{
+students.forEach(s=>{
 
-student.x += (Math.random()-0.5)*20
-student.y += (Math.random()-0.5)*20
+createFootprint(s.x,s.y)
 
-student.x=Math.max(0,Math.min(map.clientWidth,student.x))
-student.y=Math.max(0,Math.min(map.clientHeight,student.y))
+s.x+=(Math.random()-0.5)*20
+s.y+=(Math.random()-0.5)*20
 
-student.dot.style.left=student.x+"px"
-student.dot.style.top=student.y+"px"
+s.x=Math.max(0,Math.min(map.clientWidth,s.x))
+s.y=Math.max(0,Math.min(map.clientHeight,s.y))
 
-student.label.style.left=(student.x+12)+"px"
-student.label.style.top=student.y+"px"
+s.dot.style.left=s.x+"px"
+s.dot.style.top=s.y+"px"
+
+s.label.style.left=s.x+12+"px"
+s.label.style.top=s.y+"px"
 
 })
 
