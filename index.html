@@ -1,64 +1,125 @@
-<script>
+<!DOCTYPE html>
 
-const light=document.getElementById("light")
+<html lang="en">
 
-/* wand light */
+<head>
+<meta charset="UTF-8">
+<title>Living Spellbook</title>
+<button onclick="startVoiceSpell()">
+🪄 Start Spell Listening
+</button>
+<style>
 
-document.addEventListener("mousemove",e=>{
-
-light.style.left=e.clientX-150+"px"
-light.style.top=e.clientY-150+"px"
-
-})
-
-/* open map */
-
-function openMap(){
-
-window.location="marauders-map.html"
-
+body{
+margin:0;
+background:black;
+color:white;
+font-family:serif;
+overflow:hidden;
 }
 
-/* VOICE MAGIC */
+/* Wand light */
 
-const SpeechRecognition =
-window.SpeechRecognition || window.webkitSpeechRecognition
+#light{
+position:fixed;
+width:300px;
+height:300px;
+border-radius:50%;
+pointer-events:none;
+background:radial-gradient(circle, rgba(255,240,180,.9), rgba(0,0,0,0));
+mix-blend-mode:screen;
+}
+
+/* Center container */
+
+.container{
+display:flex;
+height:100vh;
+justify-content:center;
+align-items:center;
+}
+
+/* Spellbook button */
+
+.book{
+font-size:40px;
+cursor:pointer;
+padding:40px;
+background:#2b1d0e;
+border:4px solid #6b4c1f;
+border-radius:8px;
+transition:transform .2s;
+}
+
+.book:hover{
+transform:scale(1.05);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="light"></div>
+
+<div class="container">
+<div class="book" onclick="openMap()">
+📜 Open The Marauder's Map
+</div>
+</div>
+
+<script>
+
+const light = document.getElementById("light")
+
+document.addEventListener("mousemove", e => {
+    light.style.left = (e.clientX - 150) + "px"
+    light.style.top = (e.clientY - 150) + "px"
+})
+
+function openMap(){
+    window.location = "marauders-map.html"
+}
+
+/* VOICE SPELL SYSTEM */
+
+function startVoiceSpell(){
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+
+if(!SpeechRecognition){
+    alert("Voice recognition not supported in this browser")
+    return
+}
 
 const recognition = new SpeechRecognition()
 
-recognition.continuous=true
-recognition.lang="en-US"
+recognition.continuous = true
+recognition.lang = "en-US"
 
 recognition.start()
 
 recognition.onresult = function(event){
 
-let transcript = event.results[event.results.length-1][0].transcript
-.toLowerCase()
+let transcript = event.results[event.results.length - 1][0].transcript.toLowerCase()
 
 console.log("Spell heard:", transcript)
 
-/* spells */
-
-if(transcript.includes("reveal the marauders map") ||
-transcript.includes("reveal the marauder's map")){
-
+if(
+transcript.includes("reveal the marauders map") ||
+transcript.includes("reveal the marauder's map")
+){
 openMap()
-
 }
-
-if(transcript.includes("lumos")){
-
-light.style.display="block"
-
-}
-
-if(transcript.includes("nox")){
-
-light.style.display="none"
 
 }
 
 }
 
 </script>
+
+
+
+</body>
+</html>
