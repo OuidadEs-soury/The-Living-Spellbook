@@ -7,6 +7,8 @@
 <title>Living Spellbook</title>
 <button onclick="startVoiceSpell()">
 🪄 Start Spell Listening
+<button onclick="startVoiceSpell()">
+🪄 Start Spell Listening
 </button>
 <style>
 
@@ -79,45 +81,56 @@ document.addEventListener("mousemove", e => {
 })
 
 function openMap(){
-    window.location = "marauders-map.html"
+    window.location.href = "marauders-map.html"
 }
 
-/* VOICE SPELL SYSTEM */
+/* START VOICE SPELL */
 
 function startVoiceSpell(){
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 
 if(!SpeechRecognition){
-    alert("Voice recognition not supported in this browser")
-    return
+alert("Voice recognition not supported")
+return
 }
 
 const recognition = new SpeechRecognition()
 
 recognition.continuous = true
 recognition.lang = "en-US"
+recognition.interimResults = false
 
 recognition.start()
 
 recognition.onresult = function(event){
 
-let transcript = event.results[event.results.length - 1][0].transcript.toLowerCase()
+let transcript = event.results[event.results.length - 1][0].transcript
+transcript = transcript.toLowerCase().trim()
 
 console.log("Spell heard:", transcript)
 
+/* Flexible spell detection */
+
 if(
-transcript.includes("reveal the marauders map") ||
-transcript.includes("reveal the marauder's map")
+transcript.includes("marauder") ||
+transcript.includes("reveal") ||
+transcript.includes("map")
 ){
+console.log("Opening the Marauder's Map!")
 openMap()
 }
 
 }
 
+recognition.onerror = function(event){
+console.log("Voice error:", event.error)
+}
+
 }
 
 </script>
+
 
 
 
