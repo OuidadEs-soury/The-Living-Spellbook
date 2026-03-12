@@ -1,38 +1,171 @@
 <!DOCTYPE html>
-<html>
 
+<html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<title>Marauder's Map</title>
+<title>The Marauder's Map</title>
 
-<link rel="stylesheet" href="css/map.css">
+<style>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap" rel="stylesheet">
+body{
+margin:0;
+background:#d6c49c;
+font-family: "Georgia", serif;
+overflow:hidden;
+}
+
+#map{
+position:relative;
+width:100vw;
+height:100vh;
+background:url("https://www.transparenttextures.com/patterns/old-map.png");
+}
+
+/* magical ink drawing */
+
+.path{
+position:absolute;
+height:4px;
+background:#3a2a1a;
+transform-origin:left;
+animation:draw 3s forwards;
+}
+
+@keyframes draw{
+from{
+width:0;
+opacity:0;
+}
+to{
+width:100%;
+opacity:1;
+}
+}
+
+/* footprints */
+
+.footprint{
+position:absolute;
+width:10px;
+height:14px;
+background:#3a2a1a;
+border-radius:50%;
+opacity:0;
+animation:step 0.5s infinite alternate;
+}
+
+@keyframes step{
+from{opacity:0.3}
+to{opacity:1}
+}
+
+/* student dots */
+
+.student{
+position:absolute;
+color:#3a2a1a;
+font-size:14px;
+font-weight:bold;
+}
+
+</style>
 
 </head>
 
 <body>
 
-<div id="light"></div>
+<div id="map"></div>
 
-<h1 class="title">The Marauder's Map</h1>
+<script>
 
-<div id="map">
+const map = document.getElementById("map")
 
-<div class="room" style="top:20%;left:25%">Great Hall</div>
-<div class="room" style="top:60%;left:15%">Potions Dungeon</div>
-<div class="room" style="top:35%;left:70%">Library</div>
-<div class="room" style="top:75%;left:45%">Forbidden Corridor</div>
-<div class="room" style="top:50%;left:50%">Central Hall</div>
-<div class="room" style="top:10%;left:70%">Astronomy Tower</div>
-<div class="room" style="top:80%;left:70%">Hagrid's Hut</div>
+/* MAP PATHS */
 
-<div id="students"></div>
+function createPath(x,y,length,angle){
 
-</div>
+let path = document.createElement("div")
 
-<script src="js/map.js"></script>
+path.className="path"
+
+path.style.left=x+"px"
+path.style.top=y+"px"
+path.style.width=length+"px"
+path.style.transform="rotate("+angle+"deg)"
+
+map.appendChild(path)
+
+}
+
+createPath(200,200,400,0)
+createPath(200,200,200,90)
+createPath(600,200,200,90)
+createPath(200,400,400,0)
+
+/* STUDENTS */
+
+const students = [
+{name:"Harry",x:250,y:220},
+{name:"Hermione",x:300,y:420},
+{name:"Ron",x:500,y:260},
+{name:"Draco",x:620,y:380}
+]
+
+students.forEach(s=>{
+
+let dot = document.createElement("div")
+dot.className="student"
+dot.innerText=s.name
+
+dot.style.left=s.x+"px"
+dot.style.top=s.y+"px"
+
+map.appendChild(dot)
+
+moveStudent(dot)
+
+})
+
+/* MOVEMENT */
+
+function moveStudent(dot){
+
+setInterval(()=>{
+
+let x = Math.random()*window.innerWidth
+let y = Math.random()*window.innerHeight
+
+dot.style.left=x+"px"
+dot.style.top=y+"px"
+
+createFootprints(x,y)
+
+},4000)
+
+}
+
+/* FOOTPRINTS */
+
+function createFootprints(x,y){
+
+for(let i=0;i<4;i++){
+
+let fp=document.createElement("div")
+
+fp.className="footprint"
+
+fp.style.left=(x+i*8)+"px"
+fp.style.top=(y+i*8)+"px"
+
+map.appendChild(fp)
+
+setTimeout(()=>fp.remove(),2000)
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
