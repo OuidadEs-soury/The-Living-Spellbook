@@ -1,71 +1,79 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
+
 <title>The Marauder's Map</title>
 
 <style>
 
 body{
 margin:0;
-background:#d6c49c;
-font-family: "Georgia", serif;
+background:#e6d3a3;
+font-family:Georgia, serif;
 overflow:hidden;
 }
 
+/* parchment */
+
 #map{
-position:relative;
 width:100vw;
 height:100vh;
-background:url("https://www.transparenttextures.com/patterns/old-map.png");
+background-image:url("https://www.transparenttextures.com/patterns/aged-paper.png");
+position:relative;
 }
 
-/* magical ink drawing */
+/* map title */
+
+#title{
+position:absolute;
+top:40px;
+width:100%;
+text-align:center;
+font-size:48px;
+color:#3a2a1a;
+letter-spacing:3px;
+}
+
+/* corridors */
 
 .path{
 position:absolute;
-height:4px;
 background:#3a2a1a;
+height:4px;
 transform-origin:left;
-animation:draw 3s forwards;
+animation:draw 2s forwards;
 }
 
 @keyframes draw{
-from{
-width:0;
-opacity:0;
+from{width:0}
+to{width:100%}
 }
-to{
-width:100%;
-opacity:1;
-}
+
+/* student labels */
+
+.student{
+position:absolute;
+font-size:14px;
+color:#3a2a1a;
+font-weight:bold;
 }
 
 /* footprints */
 
 .footprint{
 position:absolute;
-width:10px;
-height:14px;
+width:6px;
+height:10px;
 background:#3a2a1a;
 border-radius:50%;
 opacity:0;
-animation:step 0.5s infinite alternate;
+animation:step 0.6s infinite alternate;
 }
 
 @keyframes step{
-from{opacity:0.3}
+from{opacity:0.2}
 to{opacity:1}
-}
-
-/* student dots */
-
-.student{
-position:absolute;
-color:#3a2a1a;
-font-size:14px;
-font-weight:bold;
 }
 
 </style>
@@ -74,7 +82,13 @@ font-weight:bold;
 
 <body>
 
-<div id="map"></div>
+<div id="map">
+
+<div id="title">
+I solemnly swear that I am up to no good
+</div>
+
+</div>
 
 <script>
 
@@ -82,84 +96,84 @@ const map = document.getElementById("map")
 
 /* MAP PATHS */
 
-function createPath(x,y,length,angle){
+function path(x,y,length,angle){
 
-let path = document.createElement("div")
+let p=document.createElement("div")
+p.className="path"
 
-path.className="path"
+p.style.left=x+"px"
+p.style.top=y+"px"
+p.style.width=length+"px"
+p.style.transform="rotate("+angle+"deg)"
 
-path.style.left=x+"px"
-path.style.top=y+"px"
-path.style.width=length+"px"
-path.style.transform="rotate("+angle+"deg)"
-
-map.appendChild(path)
+map.appendChild(p)
 
 }
 
-createPath(200,200,400,0)
-createPath(200,200,200,90)
-createPath(600,200,200,90)
-createPath(200,400,400,0)
+path(200,300,600,0)
+path(200,300,300,90)
+path(800,300,300,90)
+path(200,600,600,0)
 
 /* STUDENTS */
 
-const students = [
-{name:"Harry",x:250,y:220},
-{name:"Hermione",x:300,y:420},
-{name:"Ron",x:500,y:260},
-{name:"Draco",x:620,y:380}
+const students=[
+{name:"Harry",x:250,y:320},
+{name:"Hermione",x:400,y:620},
+{name:"Ron",x:900,y:320},
+{name:"Draco",x:650,y:500}
 ]
 
 students.forEach(s=>{
 
-let dot = document.createElement("div")
-dot.className="student"
-dot.innerText=s.name
+let el=document.createElement("div")
 
-dot.style.left=s.x+"px"
-dot.style.top=s.y+"px"
+el.className="student"
+el.innerText=s.name
 
-map.appendChild(dot)
+el.style.left=s.x+"px"
+el.style.top=s.y+"px"
 
-moveStudent(dot)
+map.appendChild(el)
+
+move(el)
 
 })
 
-/* MOVEMENT */
+/* STUDENT MOVEMENT */
 
-function moveStudent(dot){
+function move(el){
 
 setInterval(()=>{
 
-let x = Math.random()*window.innerWidth
-let y = Math.random()*window.innerHeight
+let x=Math.random()*1200+100
+let y=Math.random()*600+200
 
-dot.style.left=x+"px"
-dot.style.top=y+"px"
+el.style.left=x+"px"
+el.style.top=y+"px"
 
-createFootprints(x,y)
+footprints(x,y)
 
-},4000)
+},5000)
 
 }
 
 /* FOOTPRINTS */
 
-function createFootprints(x,y){
+function footprints(x,y){
 
-for(let i=0;i<4;i++){
+for(let i=0;i<5;i++){
 
-let fp=document.createElement("div")
+let f=document.createElement("div")
 
-fp.className="footprint"
+f.className="footprint"
 
-fp.style.left=(x+i*8)+"px"
-fp.style.top=(y+i*8)+"px"
+f.style.left=(x+i*6)+"px"
+f.style.top=(y+i*6)+"px"
 
-map.appendChild(fp)
+map.appendChild(f)
 
-setTimeout(()=>fp.remove(),2000)
+setTimeout(()=>f.remove(),2000)
 
 }
 
